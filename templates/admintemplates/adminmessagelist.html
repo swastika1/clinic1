@@ -1,0 +1,137 @@
+{% extends 'admintemplates/base.html' %}
+{% load static %}
+
+{% block messagelist %}active{% endblock %}
+
+{% block messagelistid %}active{% endblock %}
+
+
+{% block title %}message{% endblock %}
+
+<!-- {% block pagebrand %}{% endblock %} -->
+
+
+{% block content %}
+
+{% if messages%}
+<div class="success-message">
+<div class = "alert alert-success">
+    {% for message in messages %}
+        {{message}}
+    {% endfor %}
+</div>
+</div>
+{% endif %}
+<div class="card">
+  <div class="card-header card-header-primary card-header-icon">
+    <div class="card-icon">
+      <i class="material-icons">messages</i>
+    </div>
+    <h4 class="card-title">Messages</h4>
+  </div>
+  <div class="card-body">
+    <div class="toolbar">
+        <!--        Here you can write extra buttons/actions for the toolbar              -->
+      
+    </div>
+    <div class="material-datatables">
+
+    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+        <thead>
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Message</th>
+                <th class="disabled-sorting text-right">Actions</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Message</th>
+                <th class="text-right">Actions</th>
+            </tr>
+        </tfoot>
+        <tbody>
+          {% for message in messagelist %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{message.name}}</td>
+                <td>{{message.email}}</td>
+                <td>{{message.phone}}</td>
+                <td><button type="button" style= "background-color: white; color: #000;" class="btn btn-info" data-toggle="modal" data-target="#myModal{{message.id}}">{{message.message|truncatechars:'20'}}</button></td>
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal{{message.id}}" role="dialog">
+                    <div class="modal-dialog" id="{{message.id}}">
+                    
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Message</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>{{message.message|safe}}</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                <td class="text-right">
+                    <a data-remote="{% url 'clinic1app:adminmessagedelete' message.id %}" data-toggle="modal" data-target="#clinic-modal" href="{% url 'clinic1app:adminmessagedelete' message.id %}" class="btn btn-link btn-info btn-just-icon delete"><i class="material-icons">delete</i></a>
+                </td>
+            </tr>
+           {% endfor %}
+        </tbody>
+    </table>
+    </div>
+  </div><!-- end content-->
+</div>
+
+
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'adminstatic/js/plugins/jquery.datatables.js' %}"></script>
+<script type="text/javascript">
+    window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 1000);
+</script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('#datatables').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records",
+        }
+
+    });
+
+
+    var table = $('#datatables').DataTable();
+
+    $('.card .material-datatables label').addClass('form-group');
+});
+
+</script>
+
+{% endblock %}

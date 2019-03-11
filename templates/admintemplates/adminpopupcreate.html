@@ -1,0 +1,28 @@
+{% extends 'admintemplates/base.html' %}
+{% load static %}
+
+{% block title %}Add popup Post{% endblock %}
+
+{% block popuplist %}active{% endblock %}
+
+
+
+{% block content %}
+
+<div class="card">
+  <div class="card-header card-header-primary card-header-icon">
+    <div class="card-icon">
+      <i class="material-icons">assignment</i>
+    </div>
+    <h4 class="card-title">Popup Post</h4>
+  </div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+            {{form.as_p|safe}}
+          <button class="btn btn-block btn-primary">Submit</button>
+        </form>
+    </div><!-- end content-->
+</div>
+
+{% endblock %}

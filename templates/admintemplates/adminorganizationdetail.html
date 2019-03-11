@@ -1,0 +1,132 @@
+{% extends 'admintemplates/base.html' %}
+{% load static %}
+
+{% block organizationlist %}active{% endblock %}
+
+{% block organizaitonid %}active{% endblock %}
+
+
+{% block title %}Organization{% endblock %}
+
+<!-- {% block pagebrand %}{% endblock %} -->
+
+{% block content %}
+
+
+{% if messages%}
+<div class="success-message">
+<div class = "alert alert-success">
+    {% for message in messages %}
+        {{message}}
+    {% endfor %}
+</div>
+</div>
+{% endif %}
+<style>
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 100px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.button2:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Organization Details</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Name:</th>
+      <td>{{adminorganizationdetail.name}}</td><br>
+    <tr>
+      <th scope="row">Address:</th>
+      <td>{{adminorganizationdetail.address}}</td>
+    </tr>     
+    <tr>
+      <th scope="row">Slogan:</th>
+      <td>{{adminorganizationdetail.slogan}}</td>
+    </tr> 
+    <tr>
+    <tr>
+      <th scope="row">Mission:</th>
+      <td>{{adminorganizationdetail.mission|safe}}</td>
+    </tr>   
+    <tr>
+      <th scope="row">Vision:</th>
+      <td>{{adminorganizationdetail.vision|safe}}</td>
+    </tr> 
+    <th scope="row">About:</th>
+      <td>{{adminorganizationdetail.about|safe}}</td>
+    </tr> 
+    <tr>
+      <th scope="row">Email:</th>
+      <td>{{adminorganizationdetail.email}}</td>
+    </tr> 
+    <tr>
+      <th scope="row">Phone:</th>
+      <td>{{adminorganizationdetail.phone}}</td>
+    </tr> 
+    <tr>
+      <th scope="row">Mobile:</th>
+      <td>{{adminorganizationdetail.mobile}}</td>
+    </tr> 
+    <tr>
+      <th scope="row">Favicon:</th>
+      <td><div class="doctor-info-image"> <img src="{{adminorganizationdetail.favicon.url}}" alt="" style="width: 100px;height: auto; object-fit: cover;" /> </div>
+    </tr> 
+    <tr>
+      <th scope="row">Facebook Link:</th>
+      <td>{{adminorganizationdetail.facebook}}</td>
+    </tr> 
+    <tr>
+      <th scope="row">Twitter Link:</th>
+      <td>{{adminorganizationdetail.twitter}}</td>
+    </tr> 
+    <tr>
+      <th scope="row">Youtube Link:</th>
+      <td>{{adminorganizationdetail.youtube}}</td>
+    </tr> 
+    <tr>
+      <th scope="row">Map Co-ordinate:</th>
+      <td>{{adminorganizationdetail.map_location}}</td>
+    </tr> 
+     <tr>
+      <th scope="row">Company Logo:</th>
+      <td><div class="doctor-info-image"> <img src="{{adminorganizationdetail.logo.url}}" alt="" style="width: 200px;height: auto; object-fit: cover;" /> </div>
+    </tr> 
+
+  </tbody>
+</table>
+
+
+
+
+
+
+    <a href="{% url 'clinic1app:adminorganizationupdate' organizationl.id %}" ><button class="button button2">update</button></a>
+
+
+
+<script type="text/javascript">
+    window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 1000);
+</script>
+{% endblock %}

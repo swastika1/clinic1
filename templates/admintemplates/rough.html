@@ -1,0 +1,81 @@
+ def email_validate(request):
+        if request.method == 'POST':
+            form = ClientSubscriberForm(request.POST)
+            if Subscriber.objects.filter(email=self.cleaned_data['email']).exists():
+                return HttpResponse('User Already Subscribed')
+            else:
+                def form_valid(self, form):
+                    self.object = form.save()
+                    subject = 'Thank you for registering to our site'
+                    message = ' It  means a world to us1. '
+                    email_from = 'settings.EMAIL_HOST_USER'
+                    recipient_list = [form.instance.email]
+                    send_mail(subject, message, email_from,
+                              recipient_list, fail_silently=False)
+                return super().form_valid(form)
+
+def email_validate(request):
+        if request.method == 'POST':
+            form = ClientSubscriberForm(request.POST)
+            if Subscriber.objects.filter(email=self.cleaned_data['email']).exists():
+                return email
+
+    def pre_user_save(sender, instance, *args, **kwargs):
+        if Appointment.objects.filter(verified=instance.verified):
+            send_mail(
+                'Appointment Confirmation Mail',
+                'Your appointment is verified',
+                'settings.EMAIL_HOST_USER',
+                [instance.email],
+                fail_silently=False,
+            )
+    signals.pre_save.connect(pre_user_save, sender=Appointment,
+                             dispatch_uid='pre_user_save')
+
+
+
+    # def form_valid(self, form):
+    #     def email_validate(request):
+    #         data = self.cleaned_data['email']
+    #         duplicate_users = Subscriber.objects.filter(email=data)
+    #         if duplicate_users.exists():
+    #             raise forms.ValidationError("E-mail is already registered!")
+    #         return data
+    #     self.object = form.save()
+    #     subject = 'Registration Confirmation'
+    #     message = ' Thank you for registering.'
+    #     email_from = 'settings.EMAIL_HOST_USER'
+    #     recipient_list = [form.instance.email]
+    #     send_mail(subject, message, email_from,
+    #               recipient_list, fail_silently=False)
+    #     return super().form_valid(form)
+    #     return HttpResponseRedirect(reverse_lazy('clinic1app:clienthome'))
+
+
+
+
+
+ old_email = form.cleaned_data
+        if Subscriber.objects.filter(email=old_email['email']).exists():
+            # success_message = 'user already subscribed'
+            return HttpResponseRedirect('/')
+        else:
+
+
+
+
+def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if Subscriber.objects.filter(email=email).exists():
+            raise forms.ValidationError(
+                "User already Registered.", code="email",)
+        return email
+
+
+
+def clean_email(self):
+        email = self.cleaned_data['email']
+        if email is None:
+            raise forms.ValidationError(
+                "Give me a new email", code="email",)
+        return email
